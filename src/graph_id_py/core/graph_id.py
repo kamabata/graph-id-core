@@ -5,7 +5,7 @@ from multiprocessing import Pool
 
 import networkx as nx
 import numpy as np
-from graph_id.analysis.graphs import StructureGraph
+from graph_id_py.analysis.graphs import StructureGraph
 from pymatgen.analysis.dimensionality import get_dimensionality_larsen
 from pymatgen.analysis.local_env import MinimumDistanceNN
 from pymatgen.core import Element

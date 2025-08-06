@@ -2,7 +2,7 @@ import argparse
 import csv
 from datetime import datetime
 
-from graph_id import GraphIDGenerator
+from graph_id_py import GraphIDGenerator
 from pymatgen.core import Structure
 from tabulate import tabulate
 
