@@ -8,7 +8,6 @@
 
 ```
 pip install graph-id-core
-pip install graph-id-db # optional
 ```
 
 ### From GitHub
