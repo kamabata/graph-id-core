@@ -69,8 +69,7 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          VERSION=$(python -m build --sdist --wheel --outdir dist_tmp >/dev/null 2>&1 \
-                    && tar -xOf dist_tmp/*.tar.gz */PKG-INFO | grep '^Version:' | cut -d' ' -f2)
+          VERSION=$(sed -nE 's/^version\s*=\s*"([^"]+)".*/\1/p' pyproject.toml)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       
       - name: Create Git tag
@@ -121,9 +120,20 @@ jobs:
           path: dist
           merge-multiple: true
 
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        run: |
+          VERSION=$(sed -nE 's/^version\s*=\s*"([^"]+)".*/\1/p' pyproject.toml)
+          echo "version=$VERSION" >> $GITHUB_ENV
+
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: v${{ env.version }}
           files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -147,13 +157,13 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.11
+
       - name: Install from PyPI
         run: |
           python -m venv venv
-          source venv/bin/activate || venv\Scripts\activate
           pip install --upgrade pip
           pip install graph-id-core
+
       - name: Test import
         run: |
-          source venv/bin/activate || venv\Scripts\activate
           python -c "import graph_id"
