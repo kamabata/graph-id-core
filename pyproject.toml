@@ -4,7 +4,10 @@ version = "0.1.9"
 description = ""
 authors = ["Koki Muraoka <muraok_k@chemsys.t.u-tokyo.ac.jp>"]
 readme = "README.md"
-packages = [{include = "graph_id"}]
+packages = [
+    {include = "graph_id", from = "src"}, 
+    {include = "graph_id_py", from = "src"}
+]
 
 include = [
     "library/**/*",
@@ -13,7 +16,8 @@ include = [
     "build.py",
     "*.h",
     "*.cpp",
-    "*.hpp"
+    "*.hpp",
+    "src/graph_id/*.so"
 ]
 
 [tool.poetry.build]
@@ -33,6 +37,7 @@ pytest-cov = "^4.1.0"
 [tool.pytest.ini_options]
 testpaths = ["tests", "graph_id"]
 norecursedirs = ["library", "build", "dist", ".git", ".venv", "__pycache__"]
+pythonpath = ["src"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "pybind11~=2.11.1", "setuptools"]

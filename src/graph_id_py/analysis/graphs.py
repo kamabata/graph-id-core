@@ -2,7 +2,7 @@ import functools
 
 import networkx as nx
 import numpy as np
-from graph_id.analysis.compositional_sequence import CompositionalSequence
+from graph_id_py.analysis.compositional_sequence import CompositionalSequence
 from networkx.algorithms.distance_measures import diameter
 from pymatgen.analysis.graphs import StructureGraph as PmgStructureGraph
 from pymatgen.core import Element
