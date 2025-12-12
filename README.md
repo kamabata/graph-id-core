@@ -30,7 +30,10 @@ Graph ID works by:
 
 ```bash
 pip install graph-id-core
+<<<<<<< HEAD
 pip install graph-id-db  # optional database component
+=======
+>>>>>>> ddf92406a08be27e47c04de41be1584139013217
 ```
 
 ### From Source
