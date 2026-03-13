@@ -202,6 +202,9 @@ class BondClusteringNN(CrystalNN):
             # entry["weight"] = weight
             weight_list.append([weight, 0])
 
+        if weight_list == []:
+            return nn_data.all_nninfo
+            
         dbscan = DBSCAN(eps=0.5, min_samples=2)
         dbscan.fit(weight_list)
         labels = dbscan.labels_

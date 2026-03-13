@@ -142,6 +142,10 @@ class StructureGraph(PmgStructureGraph):  # type: ignore
 
         for u, v, d, direction in out_edges + in_edges:
             to_jimage = d["to_jimage"]
+            if "weight" in d:
+                weight = d["weight"]
+            else:
+                weight = None
 
             if direction == "in":
                 u, v = v, u  # noqa: PLW2901
@@ -154,7 +158,7 @@ class StructureGraph(PmgStructureGraph):  # type: ignore
                     site=self.structure[v],
                     jimage=to_jimage,
                     index=v,
-                    weight=d["weight"],
+                    weight=weight,
                     dist=None,
                 )
 
