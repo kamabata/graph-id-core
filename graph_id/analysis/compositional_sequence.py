@@ -119,7 +119,7 @@ class CompositionalSequence:
             The neighboring sites to count.
         """
         for neighbor in nsites:
-            neighbor_info = (neighbor.index, neighbor.jimage)
+            neighbor_info = (neighbor.index, neighbor.jimage, neighbor.weight)
 
             if neighbor_info not in self.seen_sites:
                 self.seen_sites.add(neighbor_info)
@@ -128,9 +128,14 @@ class CompositionalSequence:
 
                 if self.use_previous_cs:
                     cs = self.labels[neighbor.index]
+                    if neighbor.weight is not None:
+                        cs += f"({chr(int(neighbor.weight)+96)})"
                     self.composition_counter[cs] += 1
                 else:
-                    self.composition_counter[self.labels[neighbor.index]] += 1
+                    if neighbor.weight is not None:
+                        self.composition_counter[self.labels[neighbor.index] + f"({chr(int(neighbor.weight)+96)})"] += 1
+                    else:
+                        self.composition_counter[self.labels[neighbor.index]] += 1
 
     def finalize_this_depth(self):
         """Finalize counting for the current depth.
